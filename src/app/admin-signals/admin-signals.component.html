@@ -1,0 +1,87 @@
+<div class="container">
+  <div *ngIf="loading">
+    <app-loader></app-loader>
+  </div>
+
+  <div *ngIf="!loading">
+
+    <button class="btn btn-success mb-3"  (click)="open(content)">
+      Add Signal
+    </button>
+
+    <table datatable class="row-border hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Pair Name</th>
+        <th>Type</th>
+        <th>Lot Size</th>
+        <th>Open Price</th>
+        <th>Close Price</th>
+        <th>Status</th>
+        <th>Time</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let signal of signals">
+        <td>{{signal.id}}</td>
+        <td>{{signal.name}}</td>
+        <td>{{signal.type}}</td>
+        <td>{{signal.size}}</td>
+        <td>{{signal.openPrice}}</td>
+        <td>{{signal.closePrice}}</td>
+        <td [ngClass]="{'text-success': signal.status, 'text-danger': !signal.status}">{{signalText(signal.status)}}</td>
+        <td>{{signal.time| date : 'yyyy-MM-dd hh:mm:ss'}}</td>
+        <td>
+          <button *ngIf="signal.status" type="button" class="btn btn-danger" (click)="closeSignal(signal.id)">Close</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Signal</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="signalForm" (ngSubmit)="addNewSignal()">
+      <div class="form-group">
+        <label for="name">Email address</label>
+        <input type="text" class="form-control" id="name" placeholder="Signal Name" formControlName="name">
+      </div>
+      <div class="form-group">
+        <label for="type">Type:</label>
+        <select class="form-control" id="type" formControlName="type">
+          <option value="Sell">Sell</option>
+          <option value="Purchase">Purchase</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="size">Size</label>
+        <input type="number" class="form-control" id="size" placeholder="Signal Name" formControlName="size">
+      </div>
+      <div class="form-group">
+        <label for="openPrice">Open Price</label>
+        <input type="number" class="form-control" id="openPrice" placeholder="Open Price" formControlName="openPrice">
+      </div>
+      <div class="form-group">
+        <label for="closePrice">Close Price</label>
+        <input type="number" class="form-control" id="closePrice" placeholder="Close Price" formControlName="closePrice">
+      </div>
+      <hr>
+      <button type="submit" class="btn btn-primary w-100">ADD</button>
+    </form>
+  </div>
+<!--  <div class="modal-footer">-->
+<!--    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>-->
+<!--  </div>-->
+</ng-template>

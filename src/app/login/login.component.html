@@ -1,0 +1,51 @@
+<br><br>
+<div class="container">
+  <div class="login-form col-sm-12 col-md-6 offset-md-3 col-lg-6 offset-lg-3">
+    <div *ngIf="loading">
+      <app-loader></app-loader>
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()" *ngIf="!loading">
+      <h2 class="text-center">Log in</h2>
+      <div class="alert alert-danger fade in alert-dismissible show" *ngIf="error!=''">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true" style="font-size:20px">×</span>
+        </button>
+        <strong>Error!</strong> {{error}}
+      </div>
+      <div class="alert alert-success fade in alert-dismissible show" *ngIf="logoutValue">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true" style="font-size:20px">×</span>
+        </button>
+        <strong>Logout Successful!</strong>
+      </div>
+      <div class="alert alert-success fade in alert-dismissible show" *ngIf="signUp">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true" style="font-size:20px">×</span>
+        </button>
+        <strong>SignUp Successful!</strong>
+      </div>
+      <div class="form-group">
+        <input type="email" class="form-control" placeholder="Email" required="required" formControlName="email"
+            [ngClass]="{ 'is-invalid': formSubmitted && f.email.errors }">
+        <span class="invalid-feedback" *ngIf="f.email.errors && formSubmitted">
+          Error in Email field
+        </span>
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" placeholder="Password" required="required" formControlName="password"
+               [ngClass]="{ 'is-invalid': formSubmitted && f.password.errors }">
+        <span class="invalid-feedback" *ngIf="f.password.errors && formSubmitted">
+          Error in Password field
+        </span>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">Log in</button>
+      </div>
+      <div class="clearfix">
+        <label class="float-left form-check-label"><input type="checkbox"> Remember me</label>
+        <a class="float-right">Forgot Password?</a>
+      </div>
+    </form>
+    <p class="text-center"><a (click)="redirectToSignup()" class="text-primary">Create an Account</a></p>
+  </div>
+</div>

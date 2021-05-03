@@ -1,0 +1,57 @@
+<div class="container">
+  <!--  User Name Card -->
+  <div class="card bg-white text-dark shadow">
+    <div class="card-body">
+      <div class="flex">
+        <span class="font-size-x-large"><b>Welcome</b> Administrator!</span>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!--  three cards -->
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <div class="card bg-white text-dark shadow">
+        <div class="card-body">
+          <div class="d-flex align-items-center display-evenly">
+            <i class="fa fa-users fa-3x"></i>
+            <p class="font-size-x-large">
+              <b>Active</b>
+              <span class="ml-2 text-success">{{activeUsers}}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-white text-dark shadow">
+        <div class="card-body">
+          <div class="d-flex align-items-center display-evenly">
+            <i class='fa fa-users-slash fa-3x'></i>
+            <p class="font-size-x-large">
+              <b>Blocked</b>
+              <span class="ml-2 text-danger">{{blockedUsers}}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+        <div class="col-md-4">
+          <div class="card bg-white text-dark shadow">
+            <div class="card-body">
+              <div class="d-flex align-items-center display-evenly">
+                <i class="fa fa-info-circle fa-3x"></i>
+                <p class="font-size-x-large">
+                  <b>Signals</b>
+                  <span class="ml-2">{{signals}}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+
+  <!--  List of users in Datatables -->
+  <hr>
+  <app-users-list></app-users-list>
+</div>

@@ -1,0 +1,63 @@
+<div *ngIf="loadingUsers">
+  <app-loader></app-loader>
+</div>
+
+<table datatable class="row-border hover" *ngIf="!loadingUsers">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>name</th>
+      <th>Email</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>
+        <p class="user_status"
+           [ngClass]="{'user_success': user.accountStatus, 'user_danger': !user.accountStatus}"
+           id="accountStatus">
+          <span *ngIf="user.accountStatus;else recharge_reqired">
+            Payment Verified
+          </span>
+          <ng-template #recharge_reqired>Recharge Required</ng-template>
+        </p>
+      </td>
+      <td>
+        <button type="button" class="btn btn-success btn-circle"><i class="fa fa-user-edit"></i>
+        </button>
+        <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-user-slash"></i>
+        </button>
+        <button type="button" class="btn btn-warning btn-circle" (click)="firePaymentModal(user.id)">
+          <i class="fa fa-money-bill-wave-alt"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<!--Payment Modal-->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update Payment Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <button class="btn btn-primary" (click)="updatePayment()">Verify for next 30 Days</button>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('Cancel Button')" id="close_payment_modal">
+      Cancel
+    </button>
+  </div>
+</ng-template>
+
+<!--<pre>{{ selectedUser }}</pre>-->

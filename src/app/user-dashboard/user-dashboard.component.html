@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="card bg-white text-dark shadow">
+    <div class="card-body">
+      <div class="flex">
+        <span class="font-size-x-large"><b>Welcome</b> {{name}}!</span>
+        <span *ngIf="loading" style="height: 100px;">
+          <app-loader></app-loader>
+        </span>
+        <p class="badge badge-pill ml-2"
+           [ngClass]="{'badge-success': accountStatus==='Payment Verified', 'badge-danger': accountStatus==='Recharge Required'}"
+           id="accountStatus"
+            *ngIf="!loading">
+          <span>{{accountStatus}}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div *ngIf="loading">
+    <app-loader></app-loader>
+  </div>
+
+  <div *ngIf="!loading && isActivated">
+    <table datatable class="row-border hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Pair Name</th>
+        <th>Type</th>
+        <th>Lot Size</th>
+        <th>Open Price</th>
+        <th>Close Price</th>
+        <th>Status</th>
+        <th>Time</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let signal of signals">
+        <td>{{signal.id}}</td>
+        <td>{{signal.name}}</td>
+        <td>{{signal.type}}</td>
+        <td>{{signal.size}}</td>
+        <td>{{signal.openPrice}}</td>
+        <td>{{signal.closePrice}}</td>
+        <td [ngClass]="{'text-success': signal.status, 'text-danger': !signal.status}">{{signalText(signal.status)}}</td>
+        <td>{{signal.time| date : 'yyyy-MM-dd hh:mm:ss'}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-success my-2" (click)="getAllSignals()">Refresh Signals</button>
+  </div>
+
+</div>
